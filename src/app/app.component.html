@@ -1,2 +1,3 @@
 <h1>Audio Context Example</h1>
-<button (click)="startRecording()">Start Audio</button>
+<button (mousedown)="startRecording()" (mouseup)="stopRecording()">Record Audio</button>
+<div class="transcription-box">{{ transcription }}</div>
