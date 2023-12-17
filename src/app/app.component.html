@@ -1,3 +1,11 @@
-<h1>Audio Context Example</h1>
-<button (mousedown)="startRecording()" (mouseup)="stopRecording()">Record Audio</button>
-<div class="transcription-box">{{ transcription }}</div>
+<div class='bardr'>
+    <div class="ba-header">
+        <h1>VerTalk</h1>
+        <button (mousedown)="startRecording()" (mouseup)="stopRecording()">PRESS<br>to speak</button>
+    </div>
+    <div #transcriptionBox class="transcription-box">
+        <ul>
+            <li *ngFor="let item of messageHistory" [innerHTML]="item | safeHtml"></li>
+        </ul>
+    </div>
+</div>

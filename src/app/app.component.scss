@@ -1,28 +1,92 @@
+.bardr {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  width: 90vw;
+  height: 100%;
+  max-height: 80vh;
+  border: 1px solid black;
+  background: white;
+  box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+  border-radius: 10px;
+  margin: 5% auto;
+  padding: 2%;
+  overflow: hidden;
+}
+
+.ba-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  // padding: 2%;
+  margin: 2% 0 0;
+  width: 94%;
+  box-sizing: border-box;
+}
+
 button {
-    background-color: green; 
-    color: white; 
-    border: 4px solid green; 
-    border-radius: 50%; 
-    width: 100px; 
-    height: 100px; 
-    font-size: 16px; 
-    cursor: pointer; 
-    outline: none; 
-    transition: background-color 0.3s; 
-  }
+  background-color: green; 
+  color: white; 
+  border: 4px solid green; 
+  border-radius: 10px; 
+  width: 25%; 
+  // height: 100px; 
+  font-size: 16px; 
+  cursor: pointer; 
+  outline: none; 
+  transition: background-color 0.3s; 
+}
   
-  button:active {
-    background-color: red; 
-  }
-  
-  .transcription-box {
-    border: 2px solid black; 
-    min-width: 30vw; 
-    position: fixed; 
-    top: 10px; 
-    right: 10px; 
-    padding: 10px; 
-    background-color: white; 
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
-  }
-  
+button:active {
+  background-color: red; 
+}
+
+.transcription-box {
+  border: 2px solid black; 
+  min-width: 30vw;
+  max-height: calc(100% - 250px);
+  width: 90%;
+  margin: 5% auto;
+  padding: 2%;
+  background-color: white; 
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3); 
+  overflow-y: scroll;
+}
+
+.transcription-box ul {
+  padding: 0;
+}
+.transcription-box li {
+  margin-bottom: 10px;
+  list-style: none;
+  padding: 3%;
+  border-radius: 8px;
+  border: 1px solid grey;
+}
+
+// .transcription-box li::before {
+//   content: ""; 
+//   padding-right: 5px;
+// }
+
+.transcription-box li:nth-child(odd) {
+  // content: "YOU:";
+  // font-weight: bold;
+  background: #9FBDE3;
+  margin-right: 5%;
+}
+
+.transcription-box li:nth-child(even) {
+  // content: "AI:";
+  // font-weight: bold;
+  // background: #6184D8;
+  background: #B9D7EA;
+  margin-left: 5%;
+}
+
+// #6184D8 (Cornflower Blue)
+// #9FBDE3 (Light Steel Blue)
+// #B9D7EA (Beau Blue)
+// #D3E4F8 (Alice Blue)
