@@ -6,6 +6,7 @@ import { AudioContextModule } from 'angular-audio-context';
 import { SafeHtmlPipe } from './safe-html.pipe';
 import { gsap } from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+// const fs = require('fs');
 
 @Component({
   selector: 'app-root',
@@ -78,6 +79,7 @@ export class AppComponent {
   private sendAudioToServer(audioBlob: Blob): void {
     const formData = new FormData();
     formData.append('audio', audioBlob);
+    // playRecording(audioBlob);
   
     this.http.post('http://localhost:3000/transcribe', formData).subscribe({
       next: (response: any) => {
@@ -100,36 +102,36 @@ export class AppComponent {
   }
   
   private getAiResponse(transcription: string): void {
-    console.log('getAIResponse '+transcription);
+    // console.log('Get AI Response: '+transcription);
     this.http.post('http://localhost:3000/ai-response', { transcription: transcription }).subscribe({
       next: (response: any) => {
         this.ngZone.run(() => {
-          this.messageHistory.push('<b>AI:</b> '+response.aiResponse);
-          console.log('Updated message history:', response.aiResponse);
-          
+          this.messageHistory.push('<b>AI:</b> '+response.aiTextResponse);
+          // console.log('Updated message history:', response.aiTextResponse);
+
+          // PLAY File location
+          const audio = new Audio(response.audioContent);
+          console.log('audio:: '+audio);
+          audio.controls = true;
+          audio.play().catch((error) => console.error('Audio Playback Error:', error));          
+
           const lastElement = this.transcriptionBox.nativeElement.querySelector('li:last-child');
           if (lastElement) { gsap.to('.transcription-box', { scrollTo: { y: lastElement } }); }
           else { console.warn('No last element found in transcription box'); }
         });
       },
-      error: (error) => console.error('Error:', error)
+      error: (error) => console.error('Component Error:', error)
     });
   }
+
+  async playRecording(audioBlob: any) {
+    const audioUrl = URL.createObjectURL(audioBlob);
+    console.log('audioURL:: '+audioUrl);
+    const audio = new Audio(audioUrl);
+    console.log('audio:: '+audio);
+    audio.controls = true;
+    document.body.appendChild(audio);
+    await audio.play().catch((error) => console.error('Audio Playback Error:', error));
+  }
   
-
-  // private playRecording(audioBlob){
-  //   const audioUrl = URL.createObjectURL(audioBlob);
-  //   const audio = new Audio(audioUrl);
-  //   audio.controls = true;
-  //   document.body.appendChild(audio);
-  //   audio.play();
-  //   console.log('Audio Blob Type:', audioBlob.type); 
-  //   console.log('Audio Blob Size:', audioBlob.size); 
-  // }
-
-
-
-
 }
-
-
